@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+ <html lang="en">
+ <head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Canteen Order</title>
+ <style>
+ *{margin:0;padding:0;box-sizing:border-box;font-family: sans‑serif;}
+ body{padding:16px;max-width:420px;margin:0 auto;}
+ h2{text-align:center;margin:20px 0;}
+ .item{border:1px solid #bbb;border-radius:6px;padding:12px;margin:10px 0;display:flex;justify-content:space-between;align-items:center;}
+ button{background:#2196F3;color:white;border:none;padding:7px 12px;border-radius:4px;}
+ #orderBox{margin-top:25px;}
+ </style>
+ </head>
+ <body>
+ <h2>🍽️ Canteen Order</h2>
+ <div class="item">
+   <span>Chicken Adobo ₱45</span>
+   <button onclick="add('Chicken Adobo',45)">Add</button>
+ </div>
+ <div class="item">
+   <span>Pork Sinigang ₱50</span>
+   <button onclick="add('Pork Sinigang',50)">Add</button>
+ </div>
+ <div class="item">
+   <span>Rice ₱10</span>
+   <button onclick="add('Rice',10)">Add</button>
+ </div>
+ <div id="orderBox">
+   <h3>Your Order</h3>
+   <div id="orderList"></div>
+   <p><strong>Total: ₱<span id="totalMoney">0</span></strong></p>
+   <br>
+   <button onclick="clearOrder()">Clear</button>
+   <button onclick="submitOrder()">Submit</button>
+ </div>
+ <script>
+ let order = [];
+ function add(name, price){
+   order.push({name, price});
+   showOrder();
+ }
+ function showOrder(){
+   let list = document.getElementById("orderList");
+   let totalText = document.getElementById("totalMoney");
+   list.innerHTML = "";
+   let sum = 0;
+   for(let food of order){
+     let line = document.createElement("div");
+     line.textContent = food.name + " – ₱" + food.price;
+     list.appendChild(line);
+     sum += food.price;
+   }
+   totalText.textContent = sum;
+ }
+ function clearOrder(){
+   order = [];
+   showOrder();
+ }
+ function submitOrder(){
+   if(order.length === 0){
+     alert("Your order is empty!");
+   }else{
+     alert("✅ Order sent to canteen!");
+     order = [];
+     showOrder();
+   }
+ }
+ </script>
+ </body>
+ </html>
